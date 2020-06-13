@@ -1,6 +1,6 @@
 title puzzlejam2
 author jb & kerdelos
-
+debug
 
 ========
 OBJECTS
@@ -13,6 +13,7 @@ lightblue white
 11101
 11111
 10111
+
 
 House
 Brown DarkBrown White
@@ -78,6 +79,14 @@ Red Orange
 .1...
 .....
 
+Hole
+lightblue black gray
+00000
+02220
+01110
+01110
+00000
+
 
 =======
 LEGEND
@@ -90,6 +99,7 @@ P = Player
 @ = SnowHouse
 O = House
 F = Flag
+X = Hole
 
 
 =======
@@ -106,7 +116,7 @@ Flag
 Snow
 Snow1
 Snow2
-Player, House, SnowHouse, Wall
+Player, House, SnowHouse, Wall, Hole
 
 
 ======
@@ -128,6 +138,7 @@ late [Snow1] -> [Snow]
 late [Snow2] -> [Snow]
 late [Snow House] -> [SnowHouse]
 late [Snow Player] -> [Snow]
+late [Snow Hole] -> []
 (late [Crate Wall] -> [Wall])
 
 ([ | perpendicular Player Crate | ] -> [Crate | perpendicular Player | Crate])
@@ -151,7 +162,7 @@ LEVELS
 ############
 #...#......#
 #.f.#...*..#
-#...#...O..#
+#...#...o..#
 #...#......#
 #...#......#
 #..*****..p#
@@ -161,17 +172,37 @@ LEVELS
 
 
 #############
-#.F...#.....#
+#.f...#.....#
 #.....#.....#
 #.....#.....#
 #......*....#
 #......*....#
-#......*..P.#
+#......*..p.#
 #......*....#
 #.....#O....#
 #.....#.....#
 #.....#.....#
 #############
+
+
+############
+#f#........#
+#.#......p.#
+#.#........#
+#.#*******.#
+#.#.o.o.o..#
+#..x.x.x.x.#
+#..o.o.o.o.#
+############
+
+
+############
+#f#x.x.x.x.#
+#.#*******.#
+#.#.o.o.o.p#
+#..x.x.x.x.#
+#..o.o.o.o.#
+############
 
 
 #############
