@@ -5,6 +5,8 @@ const GAME_RULES_FILE = "res://psionic/snowplowban_rules.tres"
 const MAIN_MENU_PATH = "res://scenes/ui/MainMenu.tscn"
 const LEVEL_SELECT_MENU_PATH = "res://scenes/ui/LevelSelectMenu.tscn"
 
+const LEVEL_PATH = "res://scenes/game/level.tscn"
+
 
 var psengine;
 
@@ -24,6 +26,4 @@ func load_level_select_menu():
 
 func load_level(level_index):
 	psengine.load_level(level_index);
-	
-	var st = psengine.get_level_state();
-	pass
+	load_new_scene(LEVEL_PATH);
