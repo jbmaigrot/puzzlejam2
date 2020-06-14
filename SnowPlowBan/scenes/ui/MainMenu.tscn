@@ -1,8 +1,11 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/ui/MainMenu.gd" type="Script" id=1]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -56,3 +59,6 @@ margin_right = 158.0
 margin_bottom = 220.0
 text = "A game by JB & kerDelos"
 align = 1
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Button_Start" to="." method="_on_Button_Start_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Button_Levels" to="." method="_on_Button_Levels_pressed"]
+[connection signal="pressed" from="VBoxContainer/VBoxContainer/Button_Quit" to="." method="_on_Button_Quit_pressed"]
