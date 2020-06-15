@@ -1,5 +1,6 @@
-title SnowPlowBan
+title puzzlejam2
 author jb & kerdelos
+
 
 ========
 OBJECTS
@@ -12,7 +13,6 @@ lightblue white
 11101
 11111
 10111
-
 
 House
 Brown DarkBrown White
@@ -86,6 +86,14 @@ lightblue black gray
 01110
 00000
 
+Track
+Blue
+.....
+.0.0.
+.....
+.0.0.
+.....
+
 
 =======
 LEGEND
@@ -99,6 +107,8 @@ P = Player
 O = House
 F = Flag
 X = Hole
+T = Track
+Y = Track and Snow
 
 
 =======
@@ -111,10 +121,10 @@ COLLISIONLAYERS
 ================
  
 Background
-Flag
 Snow
 Snow1
 Snow2
+Flag, Track
 Player, House, SnowHouse, Wall, Hole
 
 
@@ -127,9 +137,10 @@ RULES
 [ > Player | Snow] -> [ > Player | ^ Snow1 v Snow2]
 
 [Snow1 Snow] -> [down Snow1 Snow]
+[Snow2 Snow] -> [down Snow2 Snow]
 
-late down [ Snow1 Snow | ] -> [ Snow | Snow1]
-late down [ Snow2 Snow | ] -> [ Snow | Snow2]
+(late down [ Snow1 Snow | ] -> [ Snow | Snow1]
+late down [ Snow2 Snow | ] -> [ Snow | Snow2])
 
 late [Snow1 Wall] -> [Wall]
 late [Snow2 Wall] -> [Wall]
@@ -152,11 +163,32 @@ WINCONDITIONS
 No SnowHouse
 Some Player
 All Player on Flag
+No Track on Snow
 
 
 =======
 LEVELS
 =======
+
+######
+#y..f#
+#y.p.#
+#y...#
+#y...#
+######
+
+
+############
+#.....****.#
+#.f..#**y*.#
+#.....**y*.#
+#.....**y*.#
+#.....*yy*.#
+#.....*y**.#
+#.p..#*y**.#
+#.....*y**.#
+############
+
 
 ############
 #...#......#
