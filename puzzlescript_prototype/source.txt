@@ -1,6 +1,6 @@
 title puzzlejam2
 author jb & kerdelos
-debug
+
 
 ========
 OBJECTS
@@ -87,6 +87,14 @@ lightblue black gray
 01110
 00000
 
+Track
+Blue
+.....
+.0.0.
+.....
+.0.0.
+.....
+
 
 =======
 LEGEND
@@ -100,6 +108,8 @@ P = Player
 O = House
 F = Flag
 X = Hole
+T = Track
+Y = Track and Snow
 
 
 =======
@@ -112,10 +122,10 @@ COLLISIONLAYERS
 ================
  
 Background
-Flag
 Snow
 Snow1
 Snow2
+Flag, Track
 Player, House, SnowHouse, Wall, Hole
 
 
@@ -153,11 +163,32 @@ WINCONDITIONS
 No SnowHouse
 Some Player
 All Player on Flag
+No Track on Snow
 
 
 =======
 LEVELS
 =======
+
+######
+#y..f#
+#y.p.#
+#y...#
+#y...#
+######
+
+
+############
+#.....****.#
+#.f..#**y*.#
+#.....**y*.#
+#.....**y*.#
+#.....*yy*.#
+#.....*y**.#
+#.p..#*y**.#
+#.....*y**.#
+############
+
 
 ############
 #...#......#
