@@ -10,7 +10,7 @@ func _ready():
 			$GridMap.set_cell_item(x,0,z,0);
 			for y in range (0, level_state.height-z):
 				if y == level_state.height-z-1:
-					$GridMap.set_cell_item(x,y+1,z,1,7);
+					$GridMap.set_cell_item(x,y+1,z,1,0);
 				else :
 					$GridMap.set_cell_item(x,y+1,z,0);
 			
