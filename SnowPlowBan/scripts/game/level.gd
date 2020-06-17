@@ -73,6 +73,8 @@ func generate_dynamic_objects():
 				mesh = SNOW_MDL
 			elif obj == "Player":
 				mesh = SNOWPLOW_MDL
+			elif obj == "Flag":
+				mesh = SNOWPLOW_MDL
 			elif obj == "SnowHouse":
 				instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, SNOW_MDL)
 				mesh = HOUSE_MDL
@@ -125,8 +127,14 @@ func _process(delta):
 		Globals.psengine.send_input("undo");
 	if Input.is_action_just_pressed("ps_restart"):
 		Globals.psengine.send_input("restart");
+	
+	if Input.is_action_just_pressed("ui_cancel"):
+		Globals.load_pause_menu();
 		
 	generate_dynamic_objects();
+	
+	if Globals.psengine.is_level_complete() :
+		Globals.load_completion_menu();
 
 
 

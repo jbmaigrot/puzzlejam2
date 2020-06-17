@@ -15,5 +15,5 @@ func _on_Button_Levels_pressed():
 
 
 func _on_Button_Quit_pressed():
-	print("not yet done")
+	Globals.load_main_menu();
 	pass # Replace with function body.
