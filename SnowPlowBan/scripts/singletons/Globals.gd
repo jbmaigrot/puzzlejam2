@@ -47,18 +47,22 @@ func load_next_level():
 func load_pause_menu():
 	get_tree().paused = true;
 	main_screen.display_pause_menu();
+	level_scene.set_game_camera_position(false);
 
 func load_completion_menu():
 	get_tree().paused = true;
 	main_screen.display_completion_menu();
+	level_scene.set_game_camera_position(false);
 	
 func load_main_menu():
 	get_tree().paused = true;
 	main_screen.display_level_select();
+	level_scene.set_game_camera_position(false);
 	
 func load_level_select_menu():
 	get_tree().paused = true;
 	main_screen.display_level_select();
+	level_scene.set_game_camera_position(false);
 
 func load_level(level_index):
 	if level_index >= psengine.get_level_count():
@@ -68,8 +72,10 @@ func load_level(level_index):
 	psengine.load_level(level_index);
 	main_screen.clear_center_children();
 	level_scene.reset_level();
+	level_scene.set_game_camera_position(true);
 	return true;
 	
 func resume_game():
 	get_tree().paused = false;
 	main_screen.clear_center_children();
+	level_scene.set_game_camera_position(true);

@@ -19,6 +19,7 @@ export var camera_horizontal_min = -1.2;
 export var camera_horizontal_max = 1.2;
 
 var scene_center;
+var opposite_scene_center;
 
 var instanced_meshes = [];
 
@@ -33,6 +34,8 @@ func reset_level():
 	
 	scene_center = $GridMap.map_to_world(level_state.width/2, level_state.height/2, level_state.height/2)
 	$Cam_rot.transform.origin= scene_center;
+	opposite_scene_center = scene_center;
+	opposite_scene_center.x = -scene_center.x
 	
 	for x in range (0, level_state.width):
 		for z in range (0,level_state.height):
@@ -48,9 +51,9 @@ func reset_level():
 #this doesn't seem to work
 func set_game_camera_position(game_position):
 	if game_position:
-		$Cam_rot.transform = $GamePosition.transform;
+		$Cam_rot.set_target(scene_center);
 	else:
-		$Cam_rot.transform = $MenuPosition.transform;
+		$Cam_rot.set_target(opposite_scene_center);
 	
 
 func clear_instanced_meshes():
