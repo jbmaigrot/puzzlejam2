@@ -13,3 +13,4 @@ material/0 = null
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2 )
 mesh = ExtResource( 2 )
 material/0 = null
+material/1 = null

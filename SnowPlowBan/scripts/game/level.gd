@@ -60,6 +60,9 @@ func generate_dynamic_objects():
 				mesh = SNOW_MDL
 			elif obj == "Player":
 				mesh = SNOWPLOW_MDL
+			elif obj == "SnowHouse":
+				instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, SNOW_MDL)
+				mesh = HOUSE_MDL
 			else :
 				continue;
 				

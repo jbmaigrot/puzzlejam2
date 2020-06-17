@@ -29,5 +29,6 @@ depth = 500.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.671306, -0.207622, 0.711507, -0.0984941, 0.926461, 0.363276, -0.734607, -0.313949, 0.601489, 0, 10.6572, 0 )
+light_energy = 1.45
 shadow_enabled = true
 shadow_bias = -0.05
