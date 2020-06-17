@@ -151,8 +151,7 @@ WINCONDITIONS
 ==============
 
 No SnowHouse
-Some Player
-All Player on Flag
+All Flag on Player
 No Track on Snow
 
 
