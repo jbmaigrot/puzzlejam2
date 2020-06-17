@@ -5,6 +5,8 @@ const HOUSE_MDL = preload("res://models/house.obj");
 const TREE_MDL = preload("res://models/tree.obj");
 const SNOW_MDL = preload("res://models/snow.obj");
 const SNOWPLOW_MDL = preload("res://models/snowplow.obj"); 
+const TRACKS_MDL = preload("res://models/tracks.obj"); 
+const FLAG_MDL = preload("res://models/flag.obj"); 
 
 export var camera_zoom_velocity = 10;
 export var camera_zoom_min = 30;
@@ -69,12 +71,14 @@ func generate_dynamic_objects():
 				mesh = HOUSE_MDL
 			elif obj == "Wall":
 				mesh = TREE_MDL
+			elif obj == "Track":
+				mesh = TRACKS_MDL
 			elif obj == "Snow":
 				mesh = SNOW_MDL
 			elif obj == "Player":
 				mesh = SNOWPLOW_MDL
 			elif obj == "Flag":
-				mesh = SNOWPLOW_MDL
+				mesh = FLAG_MDL
 			elif obj == "SnowHouse":
 				instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, SNOW_MDL)
 				mesh = HOUSE_MDL
