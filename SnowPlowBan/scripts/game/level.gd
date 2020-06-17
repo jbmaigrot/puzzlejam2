@@ -3,12 +3,20 @@ extends Spatial
 
 const HOUSE_MDL = preload("res://models/house.obj");
 const TREE_MDL = preload("res://models/tree.obj");
+const SNOW_MDL = preload("res://models/snow.obj");
+const SNOWPLOW_MDL = preload("res://models/snowplow.obj"); 
 
 var scene_center;
 
 export var camera_zoom_velocity = 10;
+export var camera_zoom_min = 10;
+export var camera_zoom_max = 10;
 export var camera_vertical_velocity = 0.05;
+export var camera_vertical_min = 0.05;
+export var camera_vertical_max = 0.05;
 export var camera_horizontal_velocity = 0.05;
+export var camera_horizontal_min = 0.05;
+export var camera_horizontal_max = 0.05;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,6 +41,10 @@ func _ready():
 				mesh = HOUSE_MDL
 			elif obj == "Wall":
 				mesh = TREE_MDL
+			elif obj == "Snow":
+				mesh = SNOW_MDL
+			elif obj == "Player":
+				mesh = SNOWPLOW_MDL
 			else :
 				continue;
 				
@@ -46,7 +58,7 @@ func _input(event):
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if event is InputEventMouseMotion:
-			$Cam_rot.rotate_object_local(Vector3.RIGHT, event.relative.y*camera_vertical_velocity);
+			$Cam_rot.rotate_object_local(Vector3.RIGHT, -event.relative.y*camera_vertical_velocity);
 			$Cam_rot.rotate_y(event.relative.x*camera_horizontal_velocity);
 
 func _process(delta):
@@ -68,7 +80,7 @@ func instantiate_mesh(x,y,z, mesh):
 	var house = MeshInstance.new();
 	house.mesh = mesh;
 	house.transform.origin = pos;
-	house.transform.rotated(Vector3.UP, 0.7)
+	house.rotate_y(PI/2)
 	$GridMap.add_child(house);
 	
 
