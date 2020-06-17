@@ -9,7 +9,7 @@ func _ready():
 	
 	$GridContainer.columns = grid_width;
 	
-	for i in range(0,level_count-1):
+	for i in range(0,level_count):
 		var button = Button.new();
 		button.text = str(i+1)
 		button.connect("pressed",self, "level_button_pressed", [i])

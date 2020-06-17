@@ -31,3 +31,4 @@ margin_top = 22.0
 margin_right = 42.0
 margin_bottom = 42.0
 text = "Back"
+[connection signal="pressed" from="Button_Back" to="." method="_on_Button_Back_pressed"]

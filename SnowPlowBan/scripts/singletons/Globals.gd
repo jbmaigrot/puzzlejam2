@@ -56,7 +56,7 @@ func load_completion_menu():
 	
 func load_main_menu():
 	get_tree().paused = true;
-	main_screen.display_level_select();
+	main_screen.display_main_menu();
 	level_scene.set_game_camera_position(false);
 	
 func load_level_select_menu():
