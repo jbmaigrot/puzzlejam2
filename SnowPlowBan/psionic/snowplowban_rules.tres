@@ -132,28 +132,18 @@ Player, House, SnowHouse, Wall, Hole
 RULES
 ======
 
-([Wall1 no Wall2] -> [Wall1 Wall2])
-
 [ > Player | Snow] -> [ > Player | ^ Snow1 v Snow2]
 
-[Snow1 Snow] -> [down Snow1 Snow]
-[Snow2 Snow] -> [down Snow2 Snow]
+late down [ Snow1 Snow | ] -> [ Snow | Snow1] again
+late down [ Snow2 Snow | ] -> [ Snow | Snow2] again
 
-(late down [ Snow1 Snow | ] -> [ Snow | Snow1]
-late down [ Snow2 Snow | ] -> [ Snow | Snow2])
-
-late [Snow1 Wall] -> [Wall]
-late [Snow2 Wall] -> [Wall]
-late [Snow1] -> [Snow]
-late [Snow2] -> [Snow]
-late [Snow House] -> [SnowHouse]
-late [Snow Player] -> [Snow]
-late [Snow Hole] -> []
-(late [Crate Wall] -> [Wall])
-
-([ | perpendicular Player Crate | ] -> [Crate | perpendicular Player | Crate])
-(late [ | perpendicular Player  Crate | ] -> [Crate | perpendicular Player | Crate])
-(Right [ > Player ] -> [ > Player MRight ])
+late right [Snow1 Wall] -> [Wall]
+late right [Snow2 Wall] -> [Wall]
+late right [Snow1 No Snow] -> [Snow]
+late right [Snow2 No Snow] -> [Snow]
+late right [Snow House] -> [SnowHouse]
+late right [Snow Player] -> [Snow]
+late right [Snow Hole] -> []
 
 
 ==============
@@ -170,6 +160,7 @@ No Track on Snow
 LEVELS
 =======
 
+(A)
 ######
 #y..f#
 #y.p.#
@@ -177,7 +168,7 @@ LEVELS
 #y...#
 ######
 
-
+(B)
 ############
 #.....****.#
 #.f..#**y*.#
@@ -189,7 +180,7 @@ LEVELS
 #.....*y**.#
 ############
 
-
+(C)
 ############
 #...#......#
 #.f.#...*..#
@@ -201,7 +192,7 @@ LEVELS
 #...#......#
 ############
 
-
+(D)
 #############
 #.f...#.....#
 #.....#.....#
@@ -215,7 +206,7 @@ LEVELS
 #.....#.....#
 #############
 
-
+(E1)
 ############
 #f#........#
 #.#......p.#
@@ -224,9 +215,9 @@ LEVELS
 #.#.o.o.o..#
 #..x.x.x.x.#
 #..o.o.o.o.#
-############
+############ 
 
-
+(E2)
 ############
 #f#x.x.x.x.#
 #.#*******.#
@@ -235,7 +226,7 @@ LEVELS
 #..o.o.o.o.#
 ############
 
-
+(F)
 #############
 #.f.********#
 #...*......*#
@@ -247,4 +238,19 @@ LEVELS
 #******o**.*#
 #***********#
 #***********#
+#############
+
+(G)
+#############
+#***********#
+#***yyyyyy**#
+#f.......t..#
+#.......#t..#
+#.tttttttt..#
+#.t.........#
+#.ttttttt...#
+#..oooootoo.#
+#..oooootoo.#
+#...ttttt.p.#
+###ooooooo###
 #############
