@@ -16,6 +16,8 @@ var psengine;
 var level_scene;
 var main_screen;
 
+var current_level = 0;
+
 var gui_canvas_layer = null
 
 # Called when the node enters the scene tree for the first time.
@@ -33,11 +35,14 @@ func _ready():
 	#setup 3D scene
 	level_scene = LEVEL_PATH.instance() 
 	get_tree().root.call_deferred("add_child", level_scene)
-	psengine.load_level(0);
+	psengine.load_level(current_level);
 	level_scene.reset_level();
 	level_scene.set_game_camera_position(false);
 	
 	get_tree().paused = true;
+
+func load_next_level():
+	return load_level(current_level +1)
 	
 func load_pause_menu():
 	get_tree().paused = true;
@@ -56,10 +61,14 @@ func load_level_select_menu():
 	main_screen.display_level_select();
 
 func load_level(level_index):
+	if level_index >= psengine.get_level_count():
+		return false
+	current_level = level_index;
 	get_tree().paused = false;
 	psengine.load_level(level_index);
 	main_screen.clear_center_children();
 	level_scene.reset_level();
+	return true;
 	
 func resume_game():
 	get_tree().paused = false;

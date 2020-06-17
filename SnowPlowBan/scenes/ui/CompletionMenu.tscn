@@ -18,20 +18,22 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_right = 55.0
+margin_right = 86.0
 margin_bottom = 14.0
 text = "Congrats"
 align = 1
 
 [node name="NextLevelButton" type="Button" parent="."]
 margin_top = 18.0
-margin_right = 55.0
+margin_right = 86.0
 margin_bottom = 38.0
+text = "next level"
 
 [node name="LelelSelectButton" type="Button" parent="."]
 margin_top = 42.0
-margin_right = 55.0
+margin_right = 86.0
 margin_bottom = 62.0
+text = "level select"
 __meta__ = {
 "_edit_use_anchors_": false
 }
