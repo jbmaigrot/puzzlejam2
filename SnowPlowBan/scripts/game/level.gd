@@ -9,14 +9,14 @@ const SNOWPLOW_MDL = preload("res://models/snowplow.obj");
 var scene_center;
 
 export var camera_zoom_velocity = 10;
-export var camera_zoom_min = 10;
+export var camera_zoom_min = 30;
 export var camera_zoom_max = 10;
-export var camera_vertical_velocity = 0.05;
-export var camera_vertical_min = 0.05;
-export var camera_vertical_max = 0.05;
+export var camera_vertical_velocity = 0.01;
+export var camera_vertical_min = -0.9;
+export var camera_vertical_max = -0.1;
 export var camera_horizontal_velocity = 0.05;
-export var camera_horizontal_min = 0.05;
-export var camera_horizontal_max = 0.05;
+export var camera_horizontal_min = -1.2;
+export var camera_horizontal_max = 1.2;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,13 +53,23 @@ func _ready():
 func _input(event):
 	if Input.is_action_just_released("cam_zoom_in"):
 		$Cam_rot/Camera.translate(Vector3(0,0,-1*camera_zoom_velocity));
+		if $Cam_rot/Camera.transform.origin.z < camera_zoom_max:
+			$Cam_rot/Camera.transform.origin.z = camera_zoom_max
 	if Input.is_action_just_released("cam_zoom_out"):
 		$Cam_rot/Camera.translate(Vector3(0,0,1*camera_zoom_velocity));
+		if $Cam_rot/Camera.transform.origin.z > camera_zoom_min:
+			$Cam_rot/Camera.transform.origin.z = camera_zoom_min
 	
 	if Input.is_mouse_button_pressed(BUTTON_LEFT):
 		if event is InputEventMouseMotion:
+			var old_rot = $Cam_rot.transform.basis;
 			$Cam_rot.rotate_object_local(Vector3.RIGHT, -event.relative.y*camera_vertical_velocity);
+			if $Cam_rot.transform.basis.get_euler().x > camera_vertical_max or $Cam_rot.transform.basis.get_euler().x < camera_vertical_min :
+				$Cam_rot.transform.basis = old_rot;
+			old_rot = $Cam_rot.transform.basis;
 			$Cam_rot.rotate_y(event.relative.x*camera_horizontal_velocity);
+			if $Cam_rot.transform.basis.get_euler().y > camera_horizontal_max or $Cam_rot.transform.basis.get_euler().y < camera_horizontal_min :
+				$Cam_rot.transform.basis = old_rot;
 
 func _process(delta):
 	if Input.is_action_just_pressed("ps_up"):

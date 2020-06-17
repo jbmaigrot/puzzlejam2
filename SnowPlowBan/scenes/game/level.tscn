@@ -17,7 +17,7 @@ __meta__ = {
 }
 
 [node name="Cam_rot" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0 )
 
 [node name="Camera" type="Camera" parent="Cam_rot"]
 transform = Transform( 1, -7.45059e-09, 2.98023e-08, 7.45059e-09, 1, 0, -2.98023e-08, 1.66534e-16, 1, 8.9407e-07, -3.57628e-06, 30 )
@@ -28,6 +28,6 @@ width = 500.0
 depth = 500.0
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.273863, -0.32572, 0.904934, -0.0984941, 0.926461, 0.363276, -0.956712, -0.188619, 0.221642, 0, 10.6572, 0 )
-light_color = Color( 0.980392, 0.94902, 0.596078, 1 )
+transform = Transform( 0.671306, -0.207622, 0.711507, -0.0984941, 0.926461, 0.363276, -0.734607, -0.313949, 0.601489, 0, 10.6572, 0 )
 shadow_enabled = true
+shadow_bias = -0.05
