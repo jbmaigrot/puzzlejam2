@@ -7,15 +7,15 @@ const TREE_MDL = preload("res://models/tree.obj");
 var scene_center;
 
 export var camera_zoom_velocity = 10;
-export var camera_vertical_velocity = 10;
-export var camera_horizontal_velocity = 10;
+export var camera_vertical_velocity = 0.05;
+export var camera_horizontal_velocity = 0.05;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var level_state = Globals.psengine.get_level_state();
 	
 	scene_center = $GridMap.map_to_world(level_state.width/2, level_state.height/2, level_state.height/2)
-	$Cam_rot_h.transform.origin= scene_center;
+	$Cam_rot.transform.origin= scene_center;
 	
 	for x in range (0, level_state.width):
 		for z in range (0,level_state.height):
@@ -37,20 +37,31 @@ func _ready():
 				continue;
 				
 			instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, mesh)
+			
+func _input(event):
+	if Input.is_action_just_released("cam_zoom_in"):
+		$Cam_rot/Camera.translate(Vector3(0,0,-1*camera_zoom_velocity));
+	if Input.is_action_just_released("cam_zoom_out"):
+		$Cam_rot/Camera.translate(Vector3(0,0,1*camera_zoom_velocity));
+	
+	if Input.is_mouse_button_pressed(BUTTON_LEFT):
+		if event is InputEventMouseMotion:
+			$Cam_rot.rotate_object_local(Vector3.RIGHT, event.relative.y*camera_vertical_velocity);
+			$Cam_rot.rotate_y(event.relative.x*camera_horizontal_velocity);
 
 func _process(delta):
-	if Input.is_action_pressed("ps_up"):
-		$Cam_rot_h/Cam_rot_v/Camera.translate(Vector3(0,0,-delta*camera_zoom_velocity));
-	if Input.is_action_pressed("ps_down"):
-		$Cam_rot_h/Cam_rot_v/Camera.translate(Vector3(0,0,delta*camera_zoom_velocity));
-	if Input.is_action_pressed("ps_left"):
-		$Cam_rot_h/Cam_rot_v.rotate_object_local(Vector3.RIGHT, delta*camera_vertical_velocity);
-	if Input.is_action_pressed("ps_right"):
-		$Cam_rot_h/Cam_rot_v.rotate_object_local(Vector3.RIGHT, -delta*camera_vertical_velocity);
-	if Input.is_action_pressed("ps_undo"):
-		$Cam_rot_h/Cam_rot_v.rotate_y(delta*camera_horizontal_velocity);
-	if Input.is_action_pressed("ps_restart"):
-		$Cam_rot_h/Cam_rot_v.rotate_y(-delta*camera_horizontal_velocity);
+	if Input.is_action_just_pressed("ps_up"):
+		Globals.psengine.send_input("up");
+	if Input.is_action_just_pressed("ps_down"):
+		Globals.psengine.send_input("down");
+	if Input.is_action_just_pressed("ps_left"):
+		Globals.psengine.send_input("left");
+	if Input.is_action_just_pressed("ps_right"):
+		Globals.psengine.send_input("right");
+	if Input.is_action_just_pressed("ps_undo"):
+		Globals.psengine.send_input("undo");
+	if Input.is_action_just_pressed("ps_restart"):
+		Globals.psengine.send_input("restart");
 
 func instantiate_mesh(x,y,z, mesh):
 	var pos = $GridMap.map_to_world(x,y,z);
