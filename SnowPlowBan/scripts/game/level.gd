@@ -6,8 +6,6 @@ const TREE_MDL = preload("res://models/tree.obj");
 const SNOW_MDL = preload("res://models/snow.obj");
 const SNOWPLOW_MDL = preload("res://models/snowplow.obj"); 
 
-var scene_center;
-
 export var camera_zoom_velocity = 10;
 export var camera_zoom_min = 30;
 export var camera_zoom_max = 10;
@@ -17,6 +15,10 @@ export var camera_vertical_max = -0.1;
 export var camera_horizontal_velocity = 0.05;
 export var camera_horizontal_min = -1.2;
 export var camera_horizontal_max = 1.2;
+
+var scene_center;
+
+var instanced_meshes = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,6 +36,19 @@ func _ready():
 				else :
 					$GridMap.set_cell_item(x,y+1,z,0);
 	
+	generate_dynamic_objects();
+	
+func clear_instanced_meshes():
+	for obj in instanced_meshes:
+		if obj != null:
+			obj.queue_free();
+
+func generate_dynamic_objects():
+	
+	clear_instanced_meshes();
+	
+	var level_state = Globals.psengine.get_level_state();
+	
 	for cell in level_state.cells:
 		for obj in cell.objects:
 			var mesh;
@@ -49,7 +64,17 @@ func _ready():
 				continue;
 				
 			instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, mesh)
-			
+
+func instantiate_mesh(x,y,z, mesh):
+	var pos = $GridMap.map_to_world(x,y,z);
+	var house = MeshInstance.new();
+	house.mesh = mesh;
+	house.transform.origin = pos;
+	house.rotate_y(PI/2)
+	$GridMap.add_child(house);
+	instanced_meshes.append(house);
+	
+
 func _input(event):
 	if Input.is_action_just_released("cam_zoom_in"):
 		$Cam_rot/Camera.translate(Vector3(0,0,-1*camera_zoom_velocity));
@@ -84,13 +109,8 @@ func _process(delta):
 		Globals.psengine.send_input("undo");
 	if Input.is_action_just_pressed("ps_restart"):
 		Globals.psengine.send_input("restart");
+		
+	generate_dynamic_objects();
 
-func instantiate_mesh(x,y,z, mesh):
-	var pos = $GridMap.map_to_world(x,y,z);
-	var house = MeshInstance.new();
-	house.mesh = mesh;
-	house.transform.origin = pos;
-	house.rotate_y(PI/2)
-	$GridMap.add_child(house);
-	
+
 
