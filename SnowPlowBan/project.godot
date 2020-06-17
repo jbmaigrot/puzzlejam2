@@ -21,6 +21,7 @@ run/main_scene="res://scenes/ui/MainMenu.tscn"
 [autoload]
 
 Globals="*res://scripts/singletons/Globals.gd"
+AudioManager="*res://scripts/singletons/AudioManager.gd"
 
 [input]
 
