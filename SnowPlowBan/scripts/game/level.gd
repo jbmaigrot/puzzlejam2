@@ -22,6 +22,11 @@ var instanced_meshes = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	reset_level();
+	
+func reset_level():
+	$GridMap.clear();
+	
 	var level_state = Globals.psengine.get_level_state();
 	
 	scene_center = $GridMap.map_to_world(level_state.width/2, level_state.height/2, level_state.height/2)
@@ -37,7 +42,15 @@ func _ready():
 					$GridMap.set_cell_item(x,y+1,z,2);
 	
 	generate_dynamic_objects();
+
+#this doesn't seem to work
+func set_game_camera_position(game_position):
+	if game_position:
+		$Cam_rot.transform = $GamePosition.transform;
+	else:
+		$Cam_rot.transform = $MenuPosition.transform;
 	
+
 func clear_instanced_meshes():
 	for obj in instanced_meshes:
 		if obj != null:

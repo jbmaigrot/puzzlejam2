@@ -40,3 +40,8 @@ transform = Transform( 0.671306, -0.207622, 0.711507, -0.0984941, 0.926461, 0.36
 light_energy = 1.45
 shadow_enabled = true
 shadow_bias = -0.05
+
+[node name="GamePosition" type="Position3D" parent="."]
+
+[node name="MenuPosition" type="Position3D" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9671, 3.8147e-06, 24.6381 )

@@ -2,16 +2,18 @@ extends Control
 
 
 func _ready():
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	
 	var level_count = Globals.psengine.get_level_count();
 	var grid_width = ceil(sqrt(level_count));
 	
-	$VBoxContainer/GridContainer.columns = grid_width;
+	$GridContainer.columns = grid_width;
 	
 	for i in range(0,level_count-1):
 		var button = Button.new();
 		button.text = str(i+1)
 		button.connect("pressed",self, "level_button_pressed", [i])
-		$VBoxContainer/GridContainer.add_child(button)
+		$GridContainer.add_child(button)
 
 func level_button_pressed(level_idx):
 	print("loading level "+str(level_idx))
