@@ -6,7 +6,9 @@ const TREE_MDL = preload("res://models/tree.obj");
 const SNOW_MDL = preload("res://models/snow.obj");
 const SNOWPLOW_MDL = preload("res://models/snowplow.obj"); 
 const TRACKS_MDL = preload("res://models/tracks.obj"); 
-const FLAG_MDL = preload("res://models/flag.obj"); 
+const FLAG_MDL = preload("res://models/flag.obj");
+const HOLE_MDL = preload("res://models/hole.obj"); 
+const FILLED_MDL = preload("res://models/filled.obj"); 
 
 export var camera_zoom_velocity = 10;
 export var camera_zoom_min = 30;
@@ -74,6 +76,9 @@ func generate_dynamic_objects():
 	
 	for cell in level_state.cells:
 		for obj in cell.objects:
+			
+			var remove_top_grid_cell = false
+			
 			var mesh;
 			if obj == "House":
 				mesh = HOUSE_MDL
@@ -87,11 +92,20 @@ func generate_dynamic_objects():
 				mesh = SNOWPLOW_MDL
 			elif obj == "Flag":
 				mesh = FLAG_MDL
+			elif obj == "Hole":
+				remove_top_grid_cell = true;
+				mesh = HOLE_MDL
+			elif obj == "FilledHole":
+				remove_top_grid_cell = true;
+				mesh = FILLED_MDL
 			elif obj == "SnowHouse":
 				instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, SNOW_MDL)
 				mesh = HOUSE_MDL
 			else :
 				continue;
+				
+			if remove_top_grid_cell:
+				$GridMap.set_cell_item(cell.x,level_state.height-cell.y,cell.y,-1);
 				
 			instantiate_mesh(cell.x,level_state.height-cell.y,cell.y, mesh)
 
