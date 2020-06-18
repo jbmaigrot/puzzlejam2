@@ -11,10 +11,10 @@ const FLAG_MDL = preload("res://models/flag.obj");
 export var camera_zoom_velocity = 10;
 export var camera_zoom_min = 30;
 export var camera_zoom_max = 10;
-export var camera_vertical_velocity = 0.01;
+export var camera_vertical_velocity = 0.001;
 export var camera_vertical_min = -0.9;
 export var camera_vertical_max = -0.1;
-export var camera_horizontal_velocity = 0.05;
+export var camera_horizontal_velocity = 0.005;
 export var camera_horizontal_min = -1.2;
 export var camera_horizontal_max = 1.2;
 
@@ -22,6 +22,10 @@ var scene_center;
 var opposite_scene_center;
 
 var instanced_meshes = [];
+
+var input_count = 0;
+var input_repeat_timer = 0;
+var last_input = "";
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,6 +51,8 @@ func reset_level():
 					$GridMap.set_cell_item(x,y+1,z,2);
 	
 	generate_dynamic_objects();
+	
+	input_count = 0;
 
 #this doesn't seem to work
 func set_game_camera_position(game_position):
@@ -124,24 +130,64 @@ func _input(event):
 func _process(delta):
 	if Input.is_action_just_pressed("ps_up"):
 		Globals.psengine.send_input("up");
+		input_count += 1;
+		last_input = "ps_up";
+		input_repeat_timer = 0.5;
 	if Input.is_action_just_pressed("ps_down"):
 		Globals.psengine.send_input("down");
+		input_count += 1;
+		last_input = "ps_down";
+		input_repeat_timer = 0.5;
 	if Input.is_action_just_pressed("ps_left"):
 		Globals.psengine.send_input("left");
+		input_count += 1;
+		last_input = "ps_left";
+		input_repeat_timer = 0.5;
 	if Input.is_action_just_pressed("ps_right"):
 		Globals.psengine.send_input("right");
+		input_count += 1;
+		last_input = "ps_right";
+		input_repeat_timer = 0.5;
 	if Input.is_action_just_pressed("ps_undo"):
 		Globals.psengine.send_input("undo");
+		input_count -= 1;
+		if input_count < 0:
+			input_count = 0;
+		last_input = "ps_undo";
+		input_repeat_timer = 0.5;
 	if Input.is_action_just_pressed("ps_restart"):
 		Globals.psengine.send_input("restart");
+		input_count = 0;
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		Globals.load_pause_menu();
-		
+	
+	if last_input != "" && Input.is_action_pressed(last_input):
+		input_repeat_timer -= delta;
+		if input_repeat_timer <= 0:
+			input_count += 1;
+			input_repeat_timer = 0.3;
+			match last_input:
+				"ps_up":
+					Globals.psengine.send_input("up");
+				"ps_down":
+					Globals.psengine.send_input("down");
+				"ps_left":
+					Globals.psengine.send_input("left");
+				"ps_right":
+					Globals.psengine.send_input("right");
+				"ps_undo":
+					Globals.psengine.send_input("undo");
+					input_count -= 2; # because it was incremented before this match
+	else:
+		last_input = "";
+	
 	generate_dynamic_objects();
 	
 	if Globals.psengine.is_level_complete() :
 		Globals.load_completion_menu();
+		
+	#print(input_count);
 
 
 
