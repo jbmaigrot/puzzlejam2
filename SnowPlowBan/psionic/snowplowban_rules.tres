@@ -86,6 +86,14 @@ lightblue black gray
 01110
 00000
 
+FilledHole
+lightblue white
+11101
+01111
+10101
+11110
+11011
+
 Track
 Blue
 .....
@@ -124,7 +132,7 @@ Background
 Snow
 Snow1
 Snow2
-Flag, Track
+Flag, Track, FilledHole
 Player, House, SnowHouse, Wall, Hole
 
 
@@ -134,8 +142,8 @@ RULES
 
 [ > Player | Snow] -> [ > Player | ^ Snow1 v Snow2]
 
-late down [ Snow1 Snow | ] -> [ Snow | Snow1] again
-late down [ Snow2 Snow | ] -> [ Snow | Snow2] again
+late down [ Snow1 Snow | ] -> [ Snow | Snow1 ] again
+late down [ Snow2 Snow | ] -> [ Snow | Snow2 ] again
 
 late right [Snow1 Wall] -> [Wall]
 late right [Snow2 Wall] -> [Wall]
@@ -143,7 +151,7 @@ late right [Snow1 No Snow] -> [Snow]
 late right [Snow2 No Snow] -> [Snow]
 late right [Snow House] -> [SnowHouse]
 late right [Snow Player] -> [Snow]
-late right [Snow Hole] -> []
+late right [Snow Hole] -> [FilledHole]
 
 
 ==============
