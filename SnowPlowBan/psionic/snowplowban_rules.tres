@@ -115,6 +115,7 @@ P = Player
 O = House
 F = Flag
 X = Hole
+H = FilledHole
 T = Track
 Y = Track and Snow
 
