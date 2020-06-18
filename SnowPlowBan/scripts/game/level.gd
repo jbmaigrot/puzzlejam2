@@ -166,6 +166,8 @@ func _process(delta):
 	if Input.is_action_just_pressed("ps_restart"):
 		Globals.psengine.send_input("restart");
 		input_count = 0;
+		last_input = "ps_restart";
+		input_repeat_timer = 100;
 	
 	if Input.is_action_just_pressed("ui_cancel"):
 		Globals.load_pause_menu();
