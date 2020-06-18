@@ -118,6 +118,9 @@ func instantiate_mesh(x,y,z, mesh):
 	$GridMap.add_child(house);
 	instanced_meshes.append(house);
 	
+	if mesh == HOUSE_MDL:
+		house.translate(Vector3(0,-0.3,0));
+	
 	if mesh == SNOWPLOW_MDL:
 		match last_input:
 			"ps_up":
