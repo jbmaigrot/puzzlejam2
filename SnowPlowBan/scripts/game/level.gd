@@ -105,6 +105,15 @@ func instantiate_mesh(x,y,z, mesh):
 	$GridMap.add_child(house);
 	instanced_meshes.append(house);
 	
+	if mesh == SNOWPLOW_MDL:
+		match last_input:
+			"ps_up":
+				house.rotate_y(-PI/2)
+			"ps_down":
+				house.rotate_y(PI/2)
+			"ps_right":
+				house.rotate_y(PI)
+		house.rotate_x(PI/8) # please replace with the right angle value if you know it :D
 
 func _input(event):
 	if Input.is_action_just_released("cam_zoom_in"):
@@ -182,7 +191,9 @@ func _process(delta):
 	else:
 		last_input = "";
 	
-	generate_dynamic_objects();
+	if last_input != "":
+		generate_dynamic_objects();
+		
 	
 	if Globals.psengine.is_level_complete() :
 		Globals.load_completion_menu();
