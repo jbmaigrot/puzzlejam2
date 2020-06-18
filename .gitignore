@@ -3,3 +3,5 @@
 .import/
 logs/
 Export/*
+SnowPlowBan/Builds/
+SnowPlowBan/export_presets.cfg
